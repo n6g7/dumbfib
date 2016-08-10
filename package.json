@@ -1,0 +1,9 @@
+{
+  "name": "dumbfib",
+  "version": "1.0.0",
+  "description": "A dumb fibonacci server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
