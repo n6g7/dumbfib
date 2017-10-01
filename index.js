@@ -9,8 +9,11 @@ function dumbFibonacci(n) {
 }
 
 http.createServer((req, res) => {
-  const query = url.parse(req.url, true).query;
-  const n = parseInt(query.n);
+  let { n } = url.parse(req.url, true).query;
+
+  if (!n) return res.end('Add a query parameter to your request: <a href="?n=2">n=2</a>')
+
+  n = parseInt(n);
   const reqId = `req-${crypto.randomBytes(2).toString('hex')} (${n})`;
 
   console.time(reqId);
@@ -18,4 +21,4 @@ http.createServer((req, res) => {
   console.timeEnd(reqId);
 
   res.end(''+result);
-}).listen(80, () => console.log('Server started.'));
+}).listen(8080, () => console.log('Server started.'));
