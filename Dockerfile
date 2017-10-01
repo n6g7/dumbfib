@@ -3,7 +3,7 @@ EXPOSE 8080
 
 WORKDIR /dumbfib
 
-COPY index.js .
-COPY package.json .
+COPY src/index.js .
+COPY src/package.json .
 
 CMD ["npm", "start"]
