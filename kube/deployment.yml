@@ -17,7 +17,7 @@ spec:
         run: dumbfib
     spec:
       containers:
-        - image: dumbfib:latest
+        - image: dumbfib:dev
           name: dumbfib
           command: ['yarn', 'watch']
           ports:

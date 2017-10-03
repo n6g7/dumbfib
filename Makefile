@@ -3,7 +3,7 @@ REPO=dumbfib
 
 start:
 	@eval $$(minikube docker-env) ;\
-	docker image build -t $(REPO):latest -f Dockerfile .
+	docker image build -t $(REPO):dev -f Dockerfile .
 	kubectl create -f kube/ --validate=false
 
 stop:
