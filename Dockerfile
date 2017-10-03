@@ -6,4 +6,6 @@ WORKDIR /dumbfib
 COPY src src
 COPY package.json .
 
-CMD ["npm", "start"]
+RUN ["yarn", "install"]
+
+CMD ["yarn", "start"]
