@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+
+metadata:
+  name: dumbfib
+  labels:
+    run: dumbfib
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dumbfib
+  template:
+    metadata:
+      labels:
+        run: dumbfib
+    spec:
+      containers:
+        - image: dumbfib:dev
+          name: dumbfib
+          ports:
+            - containerPort: 8080
