@@ -1,6 +1,6 @@
 # Dumbfib
 
-Run with `npm start`.
+Run with `yarn start`.
 Request using query parameters: `http://localhost/?n=10`.
 That's it.
 
@@ -14,3 +14,14 @@ On a `t2.micro` instance:
 | 30  | 14.268ms   | 2%         |
 | 40  | 1.761s     | 100%       |
 | 50  | ∞ (>30s)   | 100%       |
+
+## How to
+
+- Run locally:
+  - Launch minikube: `minikube start`
+  - Build image and create deployment and service: `make start`
+  - Launch the app: `minikube service dumbfib`
+  - Develop!
+  - ...
+  - Delete deployment and service: `make stop`
+  - Stop minikube: `minikube stop`
