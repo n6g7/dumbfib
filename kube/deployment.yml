@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+
+metadata:
+  name: dumbfib
+  labels:
+    run: dumbfib
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dumbfib
+  template:
+    metadata:
+      labels:
+        run: dumbfib
+    spec:
+      containers:
+        - image: dumbfib:latest
+          name: dumbfib
+          command: ['yarn', 'watch']
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /dumbfib/src
+              name: dumbfib-volume
+      volumes:
+        - name: dumbfib-volume
+          hostPath:
+            path: /Users/nathan/dev/dumbfib/src
