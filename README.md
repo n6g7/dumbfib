@@ -25,3 +25,7 @@ On a `t2.micro` instance:
   - ...
   - Delete deployment and service: `make stop`
   - Stop minikube: `minikube stop`
+
+## Notes
+
+- CD depends on https://github.com/GoogleCloudPlatform/cloud-sdk-docker/pull/101 being merged.

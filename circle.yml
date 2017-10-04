@@ -31,8 +31,48 @@ jobs:
             - ~/.yarn
             - ~/dumbfib/node_modules
 
+  deploy:
+    working_directory: ~/dumbfib
+
+    docker:
+      - image: google/cloud-sdk:latest
+
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run:
+          name: Decode Google Cloud Credentials
+          command: echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
+
+      - run:
+          name: Configure gcloud
+          command: |
+            gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+            gcloud --quiet config set project ${PROJECT_ID}
+            gcloud --quiet config set compute/zone ${COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${CLUSTER_NAME}
+
+      - run:
+          name: Build Docker image
+          command: gcloud docker -- build -t gcr.io/${PROJECT_ID}/dumbfib:$CIRCLE_SHA1 .
+
+      - run:
+          name: Push Docker image
+          command: gcloud docker -- push gcr.io/${PROJECT_ID}/dumbfib:$CIRCLE_SHA1
+
+      - run:
+          name: Deploy new image
+          command: kubectl set image deployment/dumbfib dumbfib=gcr.io/${PROJECT_ID}/dumbfib:$CIRCLE_SHA1
+
 workflows:
   version: 2
   stack:
     jobs:
       - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
