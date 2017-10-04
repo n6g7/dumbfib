@@ -1,0 +1,38 @@
+version: 2
+
+jobs:
+  test:
+    working_directory: ~/dumbfib
+
+    docker:
+      - image: node:8
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dumb-{{ .Branch }}-{{ checksum "package.json" }}
+            - dumb-{{ .Branch }}
+            - dumb-master-{{ checksum "package.json" }}
+            - dumb-master
+
+      - run:
+          name: Install dependencies
+          command: yarn
+
+      - run:
+          name: Running tests
+          command: yarn test
+
+      - save_cache:
+          key: dumb-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.yarn
+            - ~/dumbfib/node_modules
+
+workflows:
+  version: 2
+  stack:
+    jobs:
+      - test

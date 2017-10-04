@@ -4,10 +4,12 @@
   "description": "A dumb fibonacci server",
   "main": "index.js",
   "scripts": {
+    "test": "standard",
     "start": "node src/index.js",
     "watch": "nodemon --legacy-watch --watch src src/index.js"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "standard": "^10.0.3"
   }
 }
