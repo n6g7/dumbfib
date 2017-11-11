@@ -35,7 +35,7 @@ jobs:
     working_directory: ~/dumbfib
 
     docker:
-      - image: n6g7/gcloud-sdk:1
+      - image: google/cloud-sdk:latest
 
     steps:
       - checkout
